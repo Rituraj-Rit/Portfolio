@@ -484,6 +484,25 @@ body {
   outline: none;
 }
 
+.field-error {
+  color: #ff8da1;
+  font-size: 0.85rem;
+  margin-top: -0.15rem;
+}
+
+.contact-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 80;
+  padding: 0.9rem 1rem;
+  border-radius: 999px;
+  background: rgba(10, 14, 32, 0.92);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
   color: rgba(255,255,255,0.54);

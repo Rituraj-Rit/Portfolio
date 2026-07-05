@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FiGithub, FiInstagram, FiLinkedin, FiMail, FiSend, FiTwitter } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiMail, FiSend } from 'react-icons/fi'
+import { useContactForm } from '../hooks/useContactForm'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,6 +16,8 @@ const socials = [
 
 export default function Contact() {
   const sectionRef = useRef(null)
+  const [toast, setToast] = useState(null)
+  const { values, errors, isSubmitting, handleChange, submitForm } = useContactForm()
 
   useEffect(() => {
     const section = sectionRef.current
@@ -37,6 +40,22 @@ export default function Contact() {
     return () => ctx.revert()
   }, [])
 
+  useEffect(() => {
+    if (!toast) return undefined
+    const timer = window.setTimeout(() => setToast(null), 3000)
+    return () => window.clearTimeout(timer)
+  }, [toast])
+
+  const handleSubmit = async (event) => {
+    const result = await submitForm(event)
+
+    if (result.success) {
+      setToast('Message sent successfully.')
+    } else if (!result.validationFailed) {
+      setToast('Failed to send message. Please try again.')
+    }
+  }
+
   return (
     <section id="contact" className="section-block" ref={sectionRef}>
       <div className="contact-card glass-panel">
@@ -45,11 +64,16 @@ export default function Contact() {
           <h2>Let's build something extraordinary.</h2>
           <p>Available for ambitious brands, founders, and ambitious teams that want bold digital experiences.</p>
         </div>
-        <form className="contact-form">
-          <input placeholder="Name" />
-          <input placeholder="Email" type="email" />
-          <textarea placeholder="Message" rows="4" />
-          <button type="submit" className="button primary">Send Message <FiSend /></button>
+        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+          <input name="name" placeholder="Name" value={values.name} onChange={handleChange} />
+          {errors.name ? <span className="field-error">{errors.name}</span> : null}
+          <input name="email" placeholder="Email" type="email" value={values.email} onChange={handleChange} />
+          {errors.email ? <span className="field-error">{errors.email}</span> : null}
+          <textarea name="message" placeholder="Message" rows="4" value={values.message} onChange={handleChange} />
+          {errors.message ? <span className="field-error">{errors.message}</span> : null}
+          <button type="submit" className="button primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Sending...' : <>Send Message <FiSend /></>}
+          </button>
         </form>
         <div className="social-row">
           {socials.map((social) => (
@@ -59,6 +83,7 @@ export default function Contact() {
           ))}
         </div>
       </div>
+      {toast ? <div className="contact-toast">{toast}</div> : null}
     </section>
   )
 }
