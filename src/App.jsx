@@ -12,6 +12,7 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import Services from './components/Services'
 import Stats from './components/Stats'
+import Certificates from './components/Certificates/Certificates'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import SplashCursor from './components/Cursor/SplashCursor'
@@ -58,6 +59,7 @@ function App() {
         <Skills />
         <Projects />
         <Stats />
+        <Certificates />
         <Experience />
         <Services />
         <Contact />
