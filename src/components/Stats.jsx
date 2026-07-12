@@ -10,7 +10,7 @@ const stats = [
     label: "Projects Completed",
   },
   {
-    value: "500+",
+    value: "100+",
     label: "DSA Problems Solved",
   },
   {
