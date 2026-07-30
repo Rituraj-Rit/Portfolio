@@ -21,9 +21,27 @@ import Loader from './components/Loader'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const getInitialTheme = () => {
+  if (typeof window === 'undefined') return 'dark'
+
+  const savedTheme = window.localStorage.getItem('portfolio-theme')
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    return savedTheme
+  }
+
+  return 'dark'
+}
+
 function App() {
   const [loading, setLoading] = useState(true)
+  const [theme, setTheme] = useState(() => getInitialTheme())
   const scrollRef = useRef(null)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    document.documentElement.style.colorScheme = theme
+    window.localStorage.setItem('portfolio-theme', theme)
+  }, [theme])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -52,7 +70,10 @@ function App() {
       {loading ? <Loader onComplete={() => setLoading(false)} /> : null}
       <LightfallBackground />
       <SplashCursor />
-      <Navbar />
+      <Navbar
+        theme={theme}
+        onToggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
+      />
       <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8" data-scroll-section>
         <Hero />
         <About />

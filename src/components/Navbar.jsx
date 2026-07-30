@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { FiMenu, FiX } from 'react-icons/fi'
+import { FiMenu, FiMoon, FiSun, FiX } from 'react-icons/fi'
 import { navigation } from '../constants/content'
 
-export default function Navbar() {
+export default function Navbar({ theme, onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(false)
   const [active, setActive] = useState('home')
 
@@ -30,9 +30,7 @@ export default function Navbar() {
     <header className="navbar-shell">
       <nav className="navbar glass-panel">
         <a href="#home" className="brand">RKV</a>
-        <button type="button" className="menu-toggle" onClick={() => setIsOpen((value) => !value)}>
-          {isOpen ? <FiX /> : <FiMenu />}
-        </button>
+        
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
           {navigation.map((item) => (
             <a
@@ -44,6 +42,20 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
+          <div className="nav-actions">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? <FiSun /> : <FiMoon />}
+          </button>
+          <button type="button" className="menu-toggle" onClick={() => setIsOpen((value) => !value)}>
+            {isOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
         </div>
       </nav>
     </header>
