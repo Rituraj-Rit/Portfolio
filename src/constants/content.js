@@ -67,7 +67,7 @@ export const projects = [
     "REST API"],
     image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80',
     github: 'https://github.com/Rituraj-Rit/Image-Caption-Generator/tree/main',
-    demo: 'https://github.com/Rituraj-Rit/Image-Caption-Generator/tree/main',
+    demo: 'https://image-caption-generator-mvwy.onrender.com/#generate',
   },
   {
     title: 'Portfolio Website',
