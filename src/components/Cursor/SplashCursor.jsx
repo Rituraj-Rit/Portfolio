@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
 
 export default function SplashCursor() {
   const pointerRef = useRef(null)
@@ -8,17 +7,37 @@ export default function SplashCursor() {
     const pointer = pointerRef.current
     if (!pointer) return undefined
 
-    const onMove = (event) => {
-      gsap.to(pointer, {
-        x: event.clientX - 16,
-        y: event.clientY - 16,
-        duration: 0.2,
-        ease: 'power2.out',
-      })
+    const mediaQuery = window.matchMedia('(pointer: coarse)')
+    if (mediaQuery.matches) {
+      pointer.style.display = 'none'
+      return undefined
     }
 
+    let frameId = null
+    let currentX = 0
+    let currentY = 0
+    let targetX = 0
+    let targetY = 0
+
+    const onMove = (event) => {
+      targetX = event.clientX - 16
+      targetY = event.clientY - 16
+    }
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.18
+      currentY += (targetY - currentY) * 0.18
+      pointer.style.transform = `translate(${currentX}px, ${currentY}px)`
+      frameId = window.requestAnimationFrame(animate)
+    }
+
+    frameId = window.requestAnimationFrame(animate)
     window.addEventListener('pointermove', onMove)
-    return () => window.removeEventListener('pointermove', onMove)
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      window.removeEventListener('pointermove', onMove)
+    }
   }, [])
 
   return <div ref={pointerRef} className="splash-cursor" aria-hidden="true" />

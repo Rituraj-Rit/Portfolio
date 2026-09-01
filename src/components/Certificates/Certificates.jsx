@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import certificatesData from '../../constants/certificates'
 import CertificateCard from './CertificateCard'
 import CertificateModal from './CertificateModal'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Certificates() {
   const sectionRef = useRef(null)
@@ -15,34 +11,20 @@ export default function Certificates() {
     const section = sectionRef.current
     if (!section) return undefined
 
-    const ctx = gsap.context(() => {
-      gsap.from('.cert-heading', {
-        opacity: 0,
-        y: 24,
-        duration: 0.85,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 82%',
-          toggleActions: 'play none none reverse',
-        },
-      })
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible')
+            observer.unobserve(section)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
 
-      gsap.from('.certificate-card', {
-        opacity: 0,
-        y: 24,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 74%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, section)
-
-    return () => ctx.revert()
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   const handleOpen = (certificate) => {
@@ -50,7 +32,7 @@ export default function Certificates() {
   }
 
   return (
-    <section id="certificates" className="section-block" ref={sectionRef}>
+    <section id="certificates" className="section-block reveal" ref={sectionRef}>
       <div className="glass-panel cert-section-panel">
         <div className="cert-heading">
           <p className="eyebrow">Internships & Certifications</p>

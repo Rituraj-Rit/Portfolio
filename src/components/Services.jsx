@@ -1,9 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { services } from '../constants/content'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Services() {
   const sectionRef = useRef(null)
@@ -12,33 +8,31 @@ export default function Services() {
     const section = sectionRef.current
     if (!section) return undefined
 
-    const ctx = gsap.context(() => {
-      gsap.from('.service-card', {
-        opacity: 0,
-        y: 24,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 78%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, section)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible')
+            observer.unobserve(section)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
 
-    return () => ctx.revert()
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section id="services" className="section-block" ref={sectionRef}>
+    <section id="services" className="section-block reveal" ref={sectionRef}>
       <div className="section-heading">
         <p className="eyebrow">Services</p>
         <h2>Crafting premium digital products across strategy, design, and development.</h2>
       </div>
       <div className="services-grid">
         {services.map((service) => (
-          <article key={service.title} className="service-card glass-panel">
+          <article key={service.title} className="service-card glass-panel reveal">
             <h3>{service.title}</h3>
             <p>{service.description}</p>
           </article>

@@ -1,8 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const stats = [
    {
@@ -30,28 +26,26 @@ export default function Stats() {
     const section = sectionRef.current
     if (!section) return undefined
 
-    const ctx = gsap.context(() => {
-      gsap.from('.stat-card', {
-        opacity: 0,
-        y: 24,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, section)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible')
+            observer.unobserve(section)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
 
-    return () => ctx.revert()
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section className="stats-row" ref={sectionRef}>
+    <section className="stats-row reveal" ref={sectionRef}>
       {stats.map((stat) => (
-        <div key={stat.label} className="stat-card glass-panel">
+        <div key={stat.label} className="stat-card glass-panel reveal">
           <strong>{stat.value}</strong>
           <span>{stat.label}</span>
         </div>

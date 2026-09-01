@@ -1,39 +1,31 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import portrait from "../assets/hero.png";
-import portrait from "../img/about image.png";
-
-
-gsap.registerPlugin(ScrollTrigger);
+import { useEffect, useRef } from 'react'
+import portrait from '../img/about image.png'
 
 export default function About() {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef(null)
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return undefined;
+    const section = sectionRef.current
+    if (!section) return undefined
 
-    const ctx = gsap.context(() => {
-      gsap.from(".about-copy > *", {
-        opacity: 0,
-        y: 28,
-        duration: 1,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 78%",
-          toggleActions: "play none none reverse",
-        },
-      });
-    }, section);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible')
+            observer.unobserve(section)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
 
-    return () => ctx.revert();
-  }, []);
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <section id="about" className="section-grid" ref={sectionRef}>
+    <section id="about" className="section-grid reveal" ref={sectionRef}>
       <div className="section-media glass-panel">
         <img src={portrait} alt="About Rituraj" />
       </div>
@@ -58,5 +50,5 @@ export default function About() {
         </p>
       </div>
     </section>
-  );
+  )
 }

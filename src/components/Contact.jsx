@@ -1,17 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FiGithub, FiLinkedin, FiMail, FiSend } from 'react-icons/fi'
 import { useContactForm } from '../hooks/useContactForm'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const socials = [
   { icon: <FiGithub />, label: 'GitHub', href: 'https://github.com/Rituraj-Rit' },
   { icon: <FiLinkedin />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/rituraj-kumar-verma-785b3b19a/' },
-  // { icon: <FiTwitter />, label: 'Twitter', href: 'https://twitter.com/' },
-  // { icon: <FiInstagram />, label: 'Instagram', href: 'https://instagram.com/' },
-  { icon: <FiMail />, label: 'Email', href: 'riturajverma340@gmail.com' },
+  { icon: <FiMail />, label: 'Email', href: 'mailto:riturajverma340@gmail.com' },
 ]
 
 export default function Contact() {
@@ -23,21 +17,20 @@ export default function Contact() {
     const section = sectionRef.current
     if (!section) return undefined
 
-    const ctx = gsap.context(() => {
-      gsap.from('.contact-card', {
-        opacity: 0,
-        y: 24,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, section)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible')
+            observer.unobserve(section)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
 
-    return () => ctx.revert()
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -57,7 +50,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section-block" ref={sectionRef}>
+    <section id="contact" className="section-block reveal" ref={sectionRef}>
       <div className="contact-card glass-panel">
         <div>
           <p className="eyebrow">Contact</p>

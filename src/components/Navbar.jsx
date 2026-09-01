@@ -28,10 +28,10 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   return (
     <header className="navbar-shell">
-      <nav className="navbar glass-panel">
-        <a href="#home" className="brand">RKV</a>
-        
-        <div className={`nav-links ${isOpen ? 'open' : ''}`}>
+      <nav className="navbar glass-panel" aria-label="Main navigation">
+        <a href="#home" className="brand" aria-label="Go to home section">RKV</a>
+
+        <div className={`nav-links ${isOpen ? 'open' : ''}`} id="primary-navigation">
           {navigation.map((item) => (
             <a
               key={item.id}
@@ -42,7 +42,9 @@ export default function Navbar({ theme, onToggleTheme }) {
               {item.label}
             </a>
           ))}
-          <div className="nav-actions">
+        </div>
+
+        <div className="nav-actions">
           <button
             type="button"
             className="theme-toggle"
@@ -52,10 +54,16 @@ export default function Navbar({ theme, onToggleTheme }) {
           >
             {theme === 'dark' ? <FiSun /> : <FiMoon />}
           </button>
-          <button type="button" className="menu-toggle" onClick={() => setIsOpen((value) => !value)}>
+          <button
+            type="button"
+            className="menu-toggle"
+            onClick={() => setIsOpen((value) => !value)}
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
+            aria-controls="primary-navigation"
+          >
             {isOpen ? <FiX /> : <FiMenu />}
           </button>
-        </div>
         </div>
       </nav>
     </header>

@@ -1,9 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { projects } from '../constants/content'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Projects() {
   const sectionRef = useRef(null)
@@ -12,33 +8,31 @@ export default function Projects() {
     const section = sectionRef.current
     if (!section) return undefined
 
-    const ctx = gsap.context(() => {
-      gsap.from('.project-card', {
-        opacity: 0,
-        y: 24,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 78%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, section)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible')
+            observer.unobserve(section)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
 
-    return () => ctx.revert()
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section id="projects" className="section-block" ref={sectionRef}>
+    <section id="projects" className="section-block reveal" ref={sectionRef}>
       <div className="section-heading">
         <p className="eyebrow">Selected work</p>
         <h2>Projects that blend intelligence, motion, and product focus.</h2>
       </div>
       <div className="projects-grid">
         {projects.map((project) => (
-          <article key={project.title} className="project-card glass-panel">
+          <article key={project.title} className="project-card glass-panel reveal">
             <img src={project.image} alt={project.title} />
             <div className="project-body">
               <h3>{project.title}</h3>
