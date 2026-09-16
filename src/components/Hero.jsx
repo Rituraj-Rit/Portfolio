@@ -50,7 +50,7 @@ export default function Hero() {
         </p>
         <div className="hero-actions">
           <a href="#contact" className="button primary">Hire Me <FiArrowRight /></a>
-          <a href="/resume.pdf" download className="button secondary">Download Resume <FiDownload /></a>
+          <a href="/Resume.pdf" download className="button secondary">Download Resume <FiDownload /></a>
           <a href="#projects" className="button ghost">See Projects</a>
         </div>
       </div>
