@@ -29,6 +29,26 @@ export const skillList = [
 
 export const projects = [
   {
+    title: "VehiQL - AI Car Marketplace",
+    description:
+      "A full-stack automotive platform built with Next.js, featuring vehicle listings, search, authentication, and a responsive marketplace experience.",
+    stack: ["Next.js", "React", "Tailwind", "Prisma"],
+    image:
+      "https://plus.unsplash.com/premium_photo-1683133734225-8e791bfdc92a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    github: "https://github.com/Rituraj-Rit/vehiql",
+    demo: "https://vehiql-dkrh.onrender.com/",
+  },
+  {
+    title: "FoodSentry - Smart Pantry",
+    description:
+      "A smart pantry management application designed to track food items, monitor inventory, and help reduce food waste with an intuitive and responsive user experience.",
+    stack: ["React", "Node.js", "Express.js", "MongoDB"],
+    image:
+      "https://images.unsplash.com/photo-1582363810396-2a539de692f5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    github: "https://github.com/Rituraj-Rit/foodsentry-smart-pantry",
+    demo: "https://foodsentry-smart-pantry-4g8i.vercel.app/",
+  },
+  {
     title: "AI GPT – Full-Stack Conversational Assistant",
     description:
       "A MERN-based AI chatbot with Google Gemini AI, real-time messaging, JWT authentication, and Pinecone vector memory for context-aware conversations.",
@@ -68,13 +88,13 @@ export const projects = [
     demo: "https://image-caption-generator-mvwy.onrender.com/#generate",
   },
   {
-    title: "VehiQL - AI Car Marketplace",
+    title: "Portfolio Website",
     description:
-      "A full-stack automotive platform built with Next.js, featuring vehicle listings, search, authentication, and a responsive marketplace experience.",
-    stack: ["Next.js", "React", "Tailwind", "Prisma"],
-    image: "https://plus.unsplash.com/premium_photo-1683133734225-8e791bfdc92a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    github: "https://github.com/Rituraj-Rit/vehiql",
-    demo: "https://vehiql-c1pi-git-main-rituraj-rits-projects.vercel.app/",
+      "A modern and responsive personal portfolio showcasing my projects, technical skills, experience, and achievements with smooth animations and an interactive user experience.",
+    stack: ["React", "GSAP", "Tailwind CSS"],
+    image: "https://images.unsplash.com/photo-1545665277-5937489579f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    github: "https://github.com/Rituraj-Rit/Portfolio",
+    demo: "https://portfolio-gvc5o7j9h-rituraj-rits-projects.vercel.app/",
   },
 ];
 
