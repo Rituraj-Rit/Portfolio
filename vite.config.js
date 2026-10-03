@@ -13,8 +13,8 @@ export default defineConfig({
         short_name: "Rituraj Portfolio",
         description:
           "Rituraj Verma's portfolio showcasing projects, experience, and skills.",
-        theme_color: "#050816",
-        background_color: "#050816",
+        theme_color: "#193940",
+        background_color: "#193940",
         start_url: "/",
         scope: "/",
         display: "standalone",

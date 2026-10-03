@@ -11,7 +11,7 @@ export default function CertificateCard({ certificate, onOpen }) {
     gsap.to(cardRef.current, {
       y: isEntering ? -6 : 0,
       scale: isEntering ? 1.01 : 1,
-      boxShadow: isEntering ? '0 24px 90px rgba(82, 39, 255, 0.22)' : '0 16px 80px rgba(0, 0, 0, 0.32)',
+      boxShadow: isEntering ? '0 20px 56px rgba(4, 17, 19, 0.3), 0 0 28px rgba(122, 191, 90, 0.1)' : '0 16px 48px rgba(4, 17, 19, 0.3)',
       duration: 0.28,
       ease: 'power2.out',
     })

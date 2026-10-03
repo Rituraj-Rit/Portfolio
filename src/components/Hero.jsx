@@ -37,7 +37,7 @@ export default function Hero() {
     <section id="home" className="hero-section" ref={heroRef}>
       <div className="hero-copy">
         <p className="eyebrow">FULL STACK DEVELOPER • AI ENGINEER</p>
-        <h1 ref={titleRef}>Rituraj Kumar Verma</h1>
+        <h1 ref={titleRef}>Rituraj Kumar <span>Verma</span></h1>
         <div className="typed-row" ref={subRef}>
           <span>React </span>
           <span>Node.js</span>
