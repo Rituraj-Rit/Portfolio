@@ -94,7 +94,7 @@ export const projects = [
     stack: ["React", "GSAP", "Tailwind CSS"],
     image: "https://images.unsplash.com/photo-1545665277-5937489579f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     github: "https://github.com/Rituraj-Rit/Portfolio",
-    demo: "https://portfolio-gvc5o7j9h-rituraj-rits-projects.vercel.app/",
+    demo: "https://portfolio-three-dun-uozbxnl6fe.vercel.app/#home",
   },
 ];
 
